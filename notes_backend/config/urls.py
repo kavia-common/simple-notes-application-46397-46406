@@ -21,6 +21,11 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from django.views.decorators.csrf import csrf_exempt
 
+openapi_tags = [
+    {"name": "health", "description": "Service health checks"},
+    {"name": "notes", "description": "CRUD operations for notes"},
+]
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
@@ -28,9 +33,9 @@ urlpatterns = [
 
 schema_view = get_schema_view(
    openapi.Info(
-      title="My API",
+      title="Notes API",
       default_version='v1',
-      description="Test description",
+      description="Simple API to manage text notes (create, read, update, delete).",
    ),
    public=True,
    permission_classes=(permissions.AllowAny,),
@@ -51,9 +56,9 @@ def dynamic_schema_view(request, *args, **kwargs):
     url = get_full_url(request)
     view = get_schema_view(
         openapi.Info(
-            title="My API",
+            title="Notes API",
             default_version='v1',
-            description="API Docs",
+            description="Simple API to manage text notes (create, read, update, delete).",
         ),
         public=True,
         url=url,
